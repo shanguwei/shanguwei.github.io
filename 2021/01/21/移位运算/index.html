@@ -1,0 +1,268 @@
+<!DOCTYPE html><html lang="ch" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>汇编学习笔记 | ShanGu's Blog</title><meta name="author" content="山谷"><meta name="copyright" content="山谷"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="汇编学习笔记（一）根据实验来学习和巩固数据宽度和逻辑运算的知识。[TOC] 前言无论看课程还是资料，始终觉得有朦胧感，对移位运算以及原码补码反码等还是感觉不太理解。于是决定通过实例，上手实验一下，加深理解。关于涉及概念就不在这里赘述了。必要概念还是会说明一下。 学习目标1、理解并写出“10&gt;&gt;2&#x3D;2”的原理，并复习数据宽度的概念。 2、测试负数在计算机的存储以及运算结果。（基于移位运算">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编学习笔记">
+<meta property="og:url" content="http://example.com/2021/01/21/%E7%A7%BB%E4%BD%8D%E8%BF%90%E7%AE%97/index.html">
+<meta property="og:site_name" content="ShanGu&#39;s Blog">
+<meta property="og:description" content="汇编学习笔记（一）根据实验来学习和巩固数据宽度和逻辑运算的知识。[TOC] 前言无论看课程还是资料，始终觉得有朦胧感，对移位运算以及原码补码反码等还是感觉不太理解。于是决定通过实例，上手实验一下，加深理解。关于涉及概念就不在这里赘述了。必要概念还是会说明一下。 学习目标1、理解并写出“10&gt;&gt;2&#x3D;2”的原理，并复习数据宽度的概念。 2、测试负数在计算机的存储以及运算结果。（基于移位运算">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2021-01-21T14:41:30.000Z">
+<meta property="article:modified_time" content="2021-01-21T14:41:36.768Z">
+<meta property="article:author" content="山谷">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2021/01/21/%E7%A7%BB%E4%BD%8D%E8%BF%90%E7%AE%97/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-01-21 22:41:36'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/null" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">5</div></a></div></div></div><hr/></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">ShanGu's Blog</a></span><span id="menus"><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">汇编学习笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-01-21T14:41:30.000Z" title="Created 2021-01-21 22:41:30">2021-01-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-01-21T14:41:36.768Z" title="Updated 2021-01-21 22:41:36">2021-01-21</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="汇编学习笔记（一）"><a href="#汇编学习笔记（一）" class="headerlink" title="汇编学习笔记（一）"></a>汇编学习笔记（一）</h2><h3 id="根据实验来学习和巩固数据宽度和逻辑运算的知识。"><a href="#根据实验来学习和巩固数据宽度和逻辑运算的知识。" class="headerlink" title="根据实验来学习和巩固数据宽度和逻辑运算的知识。"></a>根据实验来学习和巩固数据宽度和逻辑运算的知识。</h3><p>[TOC]</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>无论看课程还是资料，始终觉得有朦胧感，对移位运算以及原码补码反码等还是感觉不太理解。于是决定通过实例，上手实验一下，加深理解。关于涉及概念就不在这里赘述了。必要概念还是会说明一下。</p>
+<h3 id="学习目标"><a href="#学习目标" class="headerlink" title="学习目标"></a>学习目标</h3><p>1、理解并写出“10&gt;&gt;2=2”的原理，并复习数据宽度的概念。</p>
+<p>2、测试负数在计算机的存储以及运算结果。（基于移位运算）</p>
+<h3 id="实验环境以及资料"><a href="#实验环境以及资料" class="headerlink" title="实验环境以及资料"></a>实验环境以及资料</h3><p>1.C语言编译器CodeBlocks。</p>
+<p>2.运算还要熟记二进制与十六进制对应表格。</p>
+<table>
+<thead>
+<tr>
+<th>0000</th>
+<th>0001</th>
+<th>0010</th>
+<th>0011</th>
+<th>0100</th>
+<th>0101</th>
+<th>0110</th>
+<th>0111</th>
+<th>1000</th>
+<th>1001</th>
+<th>1010</th>
+<th>1011</th>
+<th>1100</th>
+<th>1101</th>
+<th>1110</th>
+<th>1111</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+<td>A</td>
+<td>B</td>
+<td>C</td>
+<td>D</td>
+<td>E</td>
+<td>F</td>
+</tr>
+</tbody></table>
+<p>3.数据宽度</p>
+<p>用图示法表示最简单<br><img src="https://img-blog.csdnimg.cn/20210121140635300.png" alt="在这里插入图片描述"></p>
+<p>关于什么类型的数据采用什么大小的数据宽度，可以参考下表。<br><img src="https://img-blog.csdnimg.cn/20210121140704263.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU1NTExNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="实验过程"><a href="#实验过程" class="headerlink" title="实验过程"></a>实验过程</h3><h4 id="一、移位运算"><a href="#一、移位运算" class="headerlink" title="一、移位运算"></a>一、移位运算</h4><p>实验代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="comment">//移位运算的研究</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> <span class="keyword">unsigned</span> a;</span><br><span class="line">    a=<span class="number">10</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,a&gt;&gt;<span class="number">2</span>);</span><br><span class="line">    print_bin(a&gt;&gt;<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//直接输出二进制函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_bin</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> l = <span class="keyword">sizeof</span>(n)*<span class="number">8</span>;<span class="comment">//总位数。</span></span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">if</span>(i == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">         <span class="built_in">printf</span>(<span class="string">&quot;0&quot;</span>);</span><br><span class="line">         <span class="keyword">return</span>;</span><br><span class="line">     &#125;</span><br><span class="line">    <span class="keyword">for</span>(i = l<span class="number">-1</span>; i &gt;= <span class="number">0</span>; i --)<span class="comment">//略去高位0.</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(n&amp;(<span class="number">1</span>&lt;&lt;i)) <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(;i&gt;=<span class="number">0</span>; i --)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, (n&amp;(<span class="number">1</span>&lt;&lt;i)) != <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>移位运算是基于二进制的，符号表示为右移”&gt;&gt;”和左移“&lt;&lt;”。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210121140901475.png" alt="在这里插入图片描述"></p>
+<p>移位运算的原理可以理解为：</p>
+<p>在定义了int类型后，拥有了32位的空间（参考实验环境中的数据宽度）</p>
+<p>所以10的二进制表示为：</p>
+<p>0000 0000 0000 0000 0000 0000 0000 1010</p>
+<p>已注明无符号数的情况下，向右移位两位表示为：</p>
+<p>（补位）<u>00</u>00 0000 0000 0000 0000 0000 0000 0010 <u>10</u>（已删除）</p>
+<p>即0010 十进制为2<br><img src="https://img-blog.csdnimg.cn/20210121140916820.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU1NTExNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>答案正确</p>
+<p>同理进行左移，因为左移不存在补符号位，所以我直接猜测左移答案为</p>
+<p>（已删除）<u>00</u> 0000 0000 0000 0000 0000 0000 0010 10<u>00</u>（补位）</p>
+<p>即0010 1000 </p>
+<p>简写为 28</p>
+<p>换算为十进制为40</p>
+<p>这里出现了个失误，电脑计算器自带进制转换，但是没看懂缩写。</p>
+<p>补充上各种进制的英文以及缩写：</p>
+<p>1、BIN：binary，二进制的;</p>
+<p>2、OCT：octal，八进制的;</p>
+<p>3、HEX：hexadecimal，十六进制的; </p>
+<p>4、DEC：decimal，十进制的。<br><img src="https://img-blog.csdnimg.cn/20210121140931708.png" alt="在这里插入图片描述"></p>
+<p>所以答案就是40，写代码验证。就是上面代码换成“&lt;&lt;”即可<br><img src="https://img-blog.csdnimg.cn/2021012114095166.png" alt="在这里插入图片描述"></p>
+<p>答案正确！</p>
+<h4 id="二、有符号和无符号"><a href="#二、有符号和无符号" class="headerlink" title="二、有符号和无符号"></a>二、有符号和无符号</h4><p>继续研究有符号位的情况右移。<br><img src="https://img-blog.csdnimg.cn/20210121141000685.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU1NTExNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>这里发现结果还是2，原因可能是符号位为0的原因。</p>
+<p>在实验一下符号位为1的情况，直接写一个首位为一的二进制数即可。</p>
+<p>写出来为</p>
+<p>1000 0000 0000 0000 0000 0000 0000 0000</p>
+<p>十进制为2,147,483,648</p>
+<p>如果不补符号位的话，结果应该为</p>
+<p>0010 0000 0000 0000 0000 0000 0000 0000</p>
+<p>十进制为536,870,912</p>
+<p>那么写代码进行测试<br><img src="https://img-blog.csdnimg.cn/20210121141010526.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU1NTExNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>与上述答案相差就一个负号，转换为二进制是</p>
+<p>0010 0000 0000 0000 0000 0000 0000 0000</p>
+<p>未声明无符号的情况下，计算机自动补上了符号位</p>
+<p>这里卡壳了，不清楚运算过程中产生的负数是不是按照补码一样存储了，还是只是识别符号位。需要直接输出二进制数验证一下</p>
+<p>插入上面的函数，明天再研究，先纳入日程，今天先搞明白这个。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210121141026281.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU1NTExNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>再定义a为无符号数的情况下，输出的为我们猜测的二进制</p>
+<p>接下来试一下不定义。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210121141036294.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTU1NTExNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>可以看到，计算机自动补上了两个1，因为原来最高位为1为负，所以补1</p>
+<p>1110 0000 0000 0000 0000 0000 0000 0000</p>
+<p>怎么看都不可能输出的是-536870912，研究后发现有符号位首位为1计算机会按其补码存储。那先反过来减一取补码：</p>
+<p>1101 1111 1111 1111 1111 1111 1111 1111</p>
+<p>然后取反码</p>
+<p>0010 0000 0000 0000 0000 0000 0000 0000</p>
+<p>答案正确</p>
+<h3 id="实验总结"><a href="#实验总结" class="headerlink" title="实验总结"></a>实验总结</h3><pre><code>    果然，有了实践对知识的理解更加稳固了，还涉及到了之前所学的数据宽度等一系列知识。顺带还解决了之前C语言学习中的问题。以后的学习都采用这样的方式，围绕实验来对知识进行学习和巩固。以上这些还仅仅是二进制学习的基础，千万不能留下来漏洞。
+
+    接下来几天计划选一个实验，学习一下python。
+
+    冲冲冲！</code></pre>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p>1.原码，反码，补码的深入理解与原理：</p>
+<p>   <a target="_blank" rel="noopener" href="https://blog.csdn.net/afsvsv/article/details/94553228">https://blog.csdn.net/afsvsv/article/details/94553228</a></p>
+<p>2.二进制输出代码</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/acmsongye/article/details/90293919">https://blog.csdn.net/acmsongye/article/details/90293919</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhuxincheng_1218/article/details/86626893">https://blog.csdn.net/zhuxincheng_1218/article/details/86626893</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">山谷</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2021/01/21/%E7%A7%BB%E4%BD%8D%E8%BF%90%E7%AE%97/">http://example.com/2021/01/21/%E7%A7%BB%E4%BD%8D%E8%BF%90%E7%AE%97/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/01/16/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">MySQL学习笔记（一）</div></div></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/null" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">山谷</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">5</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">汇编学习笔记（一）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE%E5%AE%9E%E9%AA%8C%E6%9D%A5%E5%AD%A6%E4%B9%A0%E5%92%8C%E5%B7%A9%E5%9B%BA%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6%E5%92%8C%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%9A%84%E7%9F%A5%E8%AF%86%E3%80%82"><span class="toc-number">1.1.</span> <span class="toc-text">根据实验来学习和巩固数据宽度和逻辑运算的知识。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.2.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87"><span class="toc-number">1.3.</span> <span class="toc-text">学习目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E4%BB%A5%E5%8F%8A%E8%B5%84%E6%96%99"><span class="toc-number">1.4.</span> <span class="toc-text">实验环境以及资料</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E8%BF%87%E7%A8%8B"><span class="toc-number">1.5.</span> <span class="toc-text">实验过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%A7%BB%E4%BD%8D%E8%BF%90%E7%AE%97"><span class="toc-number">1.5.1.</span> <span class="toc-text">一、移位运算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%9C%89%E7%AC%A6%E5%8F%B7%E5%92%8C%E6%97%A0%E7%AC%A6%E5%8F%B7"><span class="toc-number">1.5.2.</span> <span class="toc-text">二、有符号和无符号</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E6%80%BB%E7%BB%93"><span class="toc-number">1.6.</span> <span class="toc-text">实验总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">1.7.</span> <span class="toc-text">参考文献</span></a></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/01/21/%E7%A7%BB%E4%BD%8D%E8%BF%90%E7%AE%97/" title="汇编学习笔记"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="汇编学习笔记"/></a><div class="content"><a class="title" href="/2021/01/21/%E7%A7%BB%E4%BD%8D%E8%BF%90%E7%AE%97/" title="汇编学习笔记">汇编学习笔记</a><time datetime="2021-01-21T14:41:30.000Z" title="Created 2021-01-21 22:41:30">2021-01-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/01/16/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="MySQL学习笔记（一）"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MySQL学习笔记（一）"/></a><div class="content"><a class="title" href="/2021/01/16/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="MySQL学习笔记（一）">MySQL学习笔记（一）</a><time datetime="2021-01-16T15:55:57.000Z" title="Created 2021-01-16 23:55:57">2021-01-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/12/31/gifts/" title="No title"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/2020/12/31/gifts/" title="No title">No title</a><time datetime="2020-12-31T09:09:55.689Z" title="Created 2020-12-31 17:09:55">2020-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/12/18/Demo/" title="No title"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/2020/12/18/Demo/" title="No title">No title</a><time datetime="2020-12-18T14:40:46.202Z" title="Created 2020-12-18 22:40:46">2020-12-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/11/15/hello-world/" title="Hello World"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2020/11/15/hello-world/" title="Hello World">Hello World</a><time datetime="2020-11-15T07:45:51.533Z" title="Created 2020-11-15 15:45:51">2020-11-15</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 山谷</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> {preloader.endLoading()})</script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script></div></body></html>
