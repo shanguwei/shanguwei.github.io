@@ -1,0 +1,190 @@
+<!DOCTYPE html><html lang="ch" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>python之千奇百怪的甲方（一） | ShanGu's Blog</title><meta name="keywords" content="python"><meta name="author" content="山谷"><meta name="copyright" content="山谷"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="前言直接上环境： 主编给你一份刚修订好新杂志，让你整理出一个表格里面要有文章题目，作者，字数，稿费 仔细一想，说不了python搞起来更简单，效率更高。 本文分步进行操作，整合起来有点麻烦，因为一篇杂志里面文章很多，还有各种乱七八糟的栏目和图片，想要一劳永逸还需要慢慢来。 环境python3.9 docx包 提取标题一级标题123for p in doc.paragraphs:    if p.s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python之千奇百怪的甲方（一）">
+<meta property="og:url" content="http://example.com/2021/02/28/python%E5%8A%9E%E5%85%AC%E5%A6%99%E7%94%A8/index.html">
+<meta property="og:site_name" content="ShanGu&#39;s Blog">
+<meta property="og:description" content="前言直接上环境： 主编给你一份刚修订好新杂志，让你整理出一个表格里面要有文章题目，作者，字数，稿费 仔细一想，说不了python搞起来更简单，效率更高。 本文分步进行操作，整合起来有点麻烦，因为一篇杂志里面文章很多，还有各种乱七八糟的栏目和图片，想要一劳永逸还需要慢慢来。 环境python3.9 docx包 提取标题一级标题123for p in doc.paragraphs:    if p.s">
+<meta property="og:locale">
+<meta property="og:image" content="https://s3.ax1x.com/2021/02/28/6CNWHP.jpg">
+<meta property="article:published_time" content="2021-02-28T07:18:05.000Z">
+<meta property="article:modified_time" content="2021-02-28T11:28:01.521Z">
+<meta property="article:author" content="山谷">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.ax1x.com/2021/02/28/6CNWHP.jpg"><link rel="shortcut icon" href="/img/biaoti.png"><link rel="canonical" href="http://example.com/2021/02/28/python%E5%8A%9E%E5%85%AC%E5%A6%99%E7%94%A8/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-02-28 19:28:01'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><script src="/live2d-widget-master/autoload.js"></script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/biaoti.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">12</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a></div></div></div><hr/></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://s3.ax1x.com/2021/02/12/yDblFS.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">ShanGu's Blog</a></span><span id="menus"><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">python之千奇百怪的甲方（一）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-02-28T07:18:05.000Z" title="Created 2021-02-28 15:18:05">2021-02-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-02-28T11:28:01.521Z" title="Updated 2021-02-28 19:28:01">2021-02-28</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>直接上环境：</p>
+<p>主编给你一份刚修订好新杂志，让你整理出一个表格里面要有文章题目，作者，字数，稿费</p>
+<p>仔细一想，说不了python搞起来更简单，效率更高。</p>
+<p>本文分步进行操作，整合起来有点麻烦，因为一篇杂志里面文章很多，还有各种乱七八糟的栏目和图片，想要一劳永逸还需要慢慢来。</p>
+<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>python3.9</p>
+<p>docx包</p>
+<h1 id="提取标题"><a href="#提取标题" class="headerlink" title="提取标题"></a>提取标题</h1><h2 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> doc.paragraphs:</span><br><span class="line">    <span class="keyword">if</span> p.style.name==<span class="string">&#x27;Heading 1&#x27;</span>:</span><br><span class="line">        print(p.text)</span><br></pre></td></tr></table></figure>
+
+<h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> doc.paragraphs:</span><br><span class="line">    <span class="keyword">if</span> p.style.name==<span class="string">&#x27;Heading 2&#x27;</span>:</span><br><span class="line">        print(p.text)</span><br></pre></td></tr></table></figure>
+
+<h2 id="所有标题"><a href="#所有标题" class="headerlink" title="所有标题"></a>所有标题</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> doc.paragraphs:</span><br><span class="line">    <span class="keyword">if</span> re.match(<span class="string">&quot;^Heading \d+$&quot;</span>,p.style.name):</span><br><span class="line">        print(p.text)</span><br></pre></td></tr></table></figure>
+
+<h2 id="提取正文"><a href="#提取正文" class="headerlink" title="提取正文"></a>提取正文</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> doc.paragraphs:</span><br><span class="line">    <span class="keyword">if</span> p.style.name==<span class="string">&#x27;Normal&#x27;</span>:</span><br><span class="line">        print(p.text)</span><br></pre></td></tr></table></figure>
+
+<p>搞定杂志中所有标题以后，接下来就要学习如何用python操作excel表格了。</p>
+<h1 id="python在Excel表格的运用"><a href="#python在Excel表格的运用" class="headerlink" title="python在Excel表格的运用"></a>python在Excel表格的运用</h1><p>参考文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41261833/article/details/106028038">https://blog.csdn.net/weixin_41261833/article/details/106028038</a></p>
+<h3 id="写入"><a href="#写入" class="headerlink" title="写入"></a>写入</h3><h5 id="1）修改表格中的内容"><a href="#1）修改表格中的内容" class="headerlink" title="1）修改表格中的内容"></a>1）修改表格中的内容</h5><p>① 向某个格子中写入内容并保存</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">workbook = load_workbook(filename = <span class="string">&quot;test.xlsx&quot;</span>)</span><br><span class="line">sheet = workbook.active</span><br><span class="line">print(sheet)</span><br><span class="line">sheet[<span class="string">&quot;A1&quot;</span>] = <span class="string">&quot;哈喽&quot;</span> <span class="comment"># 这句代码也可以改为cell = sheet[&quot;A1&quot;] cell.value = &quot;哈喽&quot;</span></span><br><span class="line">workbook.save(filename = <span class="string">&quot;哈喽.xlsx&quot;</span>)</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">注意：我们将“A1”单元格的数据改为了“哈喽”，并另存为了“哈喽.xlsx”文件。</span></span><br><span class="line"><span class="string">如果我们保存的时候，不修改表名，相当于直接修改源文件；</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>② .append()：向表格中插入行数据</p>
+<pre><code>.append()方式：会在表格已有的数据后面，增添这些数(按行插入)；
+这个操作很有用，爬虫得到的数据，可以使用该方式保存成Excel文件；</code></pre>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">workbook = load_workbook(filename = <span class="string">&quot;test.xlsx&quot;</span>)</span><br><span class="line">sheet = workbook.active</span><br><span class="line">print(sheet)</span><br><span class="line">data = [</span><br><span class="line">    [<span class="string">&quot;魈&quot;</span>,<span class="string">&quot;男&quot;</span>,<span class="string">&quot;165cm&quot;</span>],</span><br><span class="line">    [<span class="string">&quot;个子真矮真君&quot;</span>,<span class="string">&quot;男&quot;</span>,<span class="string">&quot;165cm&quot;</span>],</span><br><span class="line">    [<span class="string">&quot;凯亚&quot;</span>,<span class="string">&quot;男&quot;</span>,<span class="string">&quot;175cm&quot;</span>],</span><br><span class="line">    [<span class="string">&quot;凝冰渡海真君&quot;</span>,<span class="string">&quot;男&quot;</span>,<span class="string">&quot;176cm&quot;</span>],</span><br><span class="line">]</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> data:</span><br><span class="line">    sheet.append(row)</span><br><span class="line">workbook.save(filename = <span class="string">&quot;test.xlsx&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>③ .提取word表格，并保存在excel中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">from docx import Document</span><br><span class="line">from openpyxl import Workbook</span><br><span class="line"></span><br><span class="line">doc &#x3D; Document(r&quot;G:\6Tipdm\7python办公自动化\concat_word\test2.docx&quot;)</span><br><span class="line">t0 &#x3D; doc.tables[0]</span><br><span class="line"></span><br><span class="line">workbook &#x3D; Workbook()</span><br><span class="line">sheet &#x3D; workbook.active</span><br><span class="line"></span><br><span class="line">for i in range(len(t0.rows)):</span><br><span class="line">    list1 &#x3D; []</span><br><span class="line">    for j in range(len(t0.columns)):</span><br><span class="line">        list1.append(t0.cell(i,j).text)</span><br><span class="line">    sheet.append(list1)</span><br><span class="line">workbook.save(filename &#x3D; r&quot;G:\6Tipdm\7python办公自动化\concat_word\来自word中的表.xlsx&quot;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="文章字数统计"><a href="#文章字数统计" class="headerlink" title="文章字数统计"></a>文章字数统计</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">import sys</span><br><span class="line">print (sys.getdefaultencoding())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fw &#x3D; open(&#39;data.txt.utf8&#39;,&#39;r&#39;)</span><br><span class="line"></span><br><span class="line"> # character列表：存储所有出现的汉字</span><br><span class="line"></span><br><span class="line"> # stat字典：汉字为key值，出现次数为value值</span><br><span class="line"></span><br><span class="line">characters &#x3D; []</span><br><span class="line">stat &#x3D; &#123;&#125;</span><br><span class="line"></span><br><span class="line">for line in fw:</span><br><span class="line">	line &#x3D; line.strip()</span><br><span class="line">	# 如果某一行去掉空格没有内容，则这一行不做处理</span><br><span class="line">	if len(line) &#x3D;&#x3D; 0:</span><br><span class="line">		continue</span><br><span class="line"></span><br><span class="line">	for x in range(0,len(line)):</span><br><span class="line">		# 暴力列举可能出现的标点符号，统计汉字的时候跳过这些符号</span><br><span class="line">		if line[x] in [&#39; &#39;,&#39;\n&#39;,&#39;\t&#39;,&#39;，&#39;,&#39;。&#39;,&#39;？&#39;,&#39;《&#39;,&#39;》&#39;,&#39;！&#39;,&#39;、&#39;,&#39;：&#39;,&#39;“&#39;,&#39;”&#39;,&#39;；&#39;]:</span><br><span class="line">			continue</span><br><span class="line">		</span><br><span class="line">		# 如果当前汉字没有在character列表中，则加入character列表	</span><br><span class="line">		if not(line[x] in characters):</span><br><span class="line">			characters.append(line[x])</span><br><span class="line">	 </span><br><span class="line">		# 判断stat字典中是否含存在当前汉字，如果不存在，则将此汉字加入stat字典，其value值赋 0</span><br><span class="line">		# python2的版本： if not(stat.has_key(line[x])):</span><br><span class="line">		if not (stat.__contains__(line[x])):</span><br><span class="line">			stat[line[x]] &#x3D; 0</span><br><span class="line">		</span><br><span class="line">		# 在stat字典中，使当前汉字的统计数 +1</span><br><span class="line">		stat[line[x]] +&#x3D; 1 </span><br><span class="line"></span><br><span class="line">fw.close()</span><br><span class="line"></span><br><span class="line"># print the result</span><br><span class="line"></span><br><span class="line">print(characters)</span><br><span class="line">for key,value in stat.items():</span><br><span class="line">	print(key,value)</span><br><span class="line"></span><br><span class="line"># 查看character和stat的长度，即里面含有的元素个数</span><br><span class="line"></span><br><span class="line">print(&#39;characters列表的长度：&#39; + str(len(characters)))</span><br><span class="line">print(&#39;stat字典的长度：&#39; + str(len(stat)))</span><br></pre></td></tr></table></figure>
+
+<p>接下来，需要再写一个判断模块，来跳过一下不必要的字数记录。</p>
+<p>还有一个大问题是，如何让程序运行到每篇文章末尾的时候结束字数统计。这里我采用的方法是识别到含有“作者简介”字样是结束运行。</p>
+<p>下一篇考虑用一种新的方式，暂时想着用字号，但是漏洞反而更多了。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">山谷</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2021/02/28/python%E5%8A%9E%E5%85%AC%E5%A6%99%E7%94%A8/">http://example.com/2021/02/28/python%E5%8A%9E%E5%85%AC%E5%A6%99%E7%94%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a></div><div class="post_share"><div class="social-share" data-image="https://s3.ax1x.com/2021/02/28/6CNWHP.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/02/26/%E5%9F%8B%E8%91%AC%EF%BC%8C%E5%BE%80%E5%89%8D%E8%B5%B0%EF%BC%8C%E5%88%AB%E5%81%9C/"><img class="next-cover" src="https://s3.ax1x.com/2021/02/26/yxleZn.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">埋葬，往前走，别停</div></div></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/biaoti.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">山谷</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">12</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-text">环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8F%90%E5%8F%96%E6%A0%87%E9%A2%98"><span class="toc-text">提取标题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E7%BA%A7%E6%A0%87%E9%A2%98"><span class="toc-text">一级标题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E7%BA%A7%E6%A0%87%E9%A2%98"><span class="toc-text">二级标题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%80%E6%9C%89%E6%A0%87%E9%A2%98"><span class="toc-text">所有标题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E5%8F%96%E6%AD%A3%E6%96%87"><span class="toc-text">提取正文</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#python%E5%9C%A8Excel%E8%A1%A8%E6%A0%BC%E7%9A%84%E8%BF%90%E7%94%A8"><span class="toc-text">python在Excel表格的运用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E5%85%A5"><span class="toc-text">写入</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1%EF%BC%89%E4%BF%AE%E6%94%B9%E8%A1%A8%E6%A0%BC%E4%B8%AD%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-text">1）修改表格中的内容</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E7%AB%A0%E5%AD%97%E6%95%B0%E7%BB%9F%E8%AE%A1"><span class="toc-text">文章字数统计</span></a></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/02/28/python%E5%8A%9E%E5%85%AC%E5%A6%99%E7%94%A8/" title="python之千奇百怪的甲方（一）"><img src="https://s3.ax1x.com/2021/02/28/6CNWHP.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="python之千奇百怪的甲方（一）"/></a><div class="content"><a class="title" href="/2021/02/28/python%E5%8A%9E%E5%85%AC%E5%A6%99%E7%94%A8/" title="python之千奇百怪的甲方（一）">python之千奇百怪的甲方（一）</a><time datetime="2021-02-28T07:18:05.000Z" title="Created 2021-02-28 15:18:05">2021-02-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/26/%E5%9F%8B%E8%91%AC%EF%BC%8C%E5%BE%80%E5%89%8D%E8%B5%B0%EF%BC%8C%E5%88%AB%E5%81%9C/" title="埋葬，往前走，别停"><img src="https://s3.ax1x.com/2021/02/26/yxleZn.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="埋葬，往前走，别停"/></a><div class="content"><a class="title" href="/2021/02/26/%E5%9F%8B%E8%91%AC%EF%BC%8C%E5%BE%80%E5%89%8D%E8%B5%B0%EF%BC%8C%E5%88%AB%E5%81%9C/" title="埋葬，往前走，别停">埋葬，往前走，别停</a><time datetime="2021-02-25T17:13:35.000Z" title="Created 2021-02-26 01:13:35">2021-02-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/11/%E8%BE%9E%E6%97%A7%E8%BF%8E%E6%96%B0-%E5%85%B3%E4%BA%8E%E8%BF%87%E5%8E%BB%E4%B8%80%E5%B9%B4%E7%9A%84%E6%80%9D%E8%80%83%E5%92%8C%E6%9C%AA%E6%9D%A5%E8%A7%84%E5%88%92%E3%80%82/" title="辞旧迎新:关于过去一年的思考和未来规划。"><img src="https://s3.ax1x.com/2021/02/12/yDbUe0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="辞旧迎新:关于过去一年的思考和未来规划。"/></a><div class="content"><a class="title" href="/2021/02/11/%E8%BE%9E%E6%97%A7%E8%BF%8E%E6%96%B0-%E5%85%B3%E4%BA%8E%E8%BF%87%E5%8E%BB%E4%B8%80%E5%B9%B4%E7%9A%84%E6%80%9D%E8%80%83%E5%92%8C%E6%9C%AA%E6%9D%A5%E8%A7%84%E5%88%92%E3%80%82/" title="辞旧迎新:关于过去一年的思考和未来规划。">辞旧迎新:关于过去一年的思考和未来规划。</a><time datetime="2021-02-11T13:49:08.000Z" title="Created 2021-02-11 21:49:08">2021-02-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/07/ctf/" title="ctf逆向题目训练笔记（一）"><img src="https://s3.ax1x.com/2021/02/07/ytbbiq.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ctf逆向题目训练笔记（一）"/></a><div class="content"><a class="title" href="/2021/02/07/ctf/" title="ctf逆向题目训练笔记（一）">ctf逆向题目训练笔记（一）</a><time datetime="2021-02-07T06:07:13.000Z" title="Created 2021-02-07 14:07:13">2021-02-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/01/28/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" title="超详细博客搭建，学不会来打我！"><img src="https://s3.ax1x.com/2021/01/30/ykUalt.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="超详细博客搭建，学不会来打我！"/></a><div class="content"><a class="title" href="/2021/01/28/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" title="超详细博客搭建，学不会来打我！">超详细博客搭建，学不会来打我！</a><time datetime="2021-01-28T04:58:44.000Z" title="Created 2021-01-28 12:58:44">2021-01-28</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 山谷</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> {preloader.endLoading()})</script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script></div></body></html>
