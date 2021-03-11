@@ -1,0 +1,252 @@
+<!DOCTYPE html><html lang="ch" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>汇编（二）存储模式和汇编指令 | ShanGu's Blog</title><meta name="keywords" content="汇编语言"><meta name="author" content="山谷"><meta name="copyright" content="山谷"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="存储模式和汇编指令[TOC] 前言存储模式分为：大端模式和小端模式； 大端模式：数据低位在高位，数据高位在低位；  详细解释就是，数据的高位字节存放在内存的低地址端，数据的高位字节存放在内存的高地址端； 内存地址的低位到高位位就是从小到大；比如下面四个地址就是从低位到高位：    地址低位   地址高位    0x11 0x12 0x13 0x14   小端模式；数据低位在低位，数据高位在高位；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编（二）存储模式和汇编指令">
+<meta property="og:url" content="http://example.com/2021/03/11/%E6%B1%87%E7%BC%96%EF%BC%88%E4%BA%8C-%E5%AD%98%E5%82%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4/index.html">
+<meta property="og:site_name" content="ShanGu&#39;s Blog">
+<meta property="og:description" content="存储模式和汇编指令[TOC] 前言存储模式分为：大端模式和小端模式； 大端模式：数据低位在高位，数据高位在低位；  详细解释就是，数据的高位字节存放在内存的低地址端，数据的高位字节存放在内存的高地址端； 内存地址的低位到高位位就是从小到大；比如下面四个地址就是从低位到高位：    地址低位   地址高位    0x11 0x12 0x13 0x14   小端模式；数据低位在低位，数据高位在高位；">
+<meta property="og:locale">
+<meta property="og:image" content="https://s3.ax1x.com/2021/03/11/6NaG8J.png">
+<meta property="article:published_time" content="2021-03-11T14:42:35.000Z">
+<meta property="article:modified_time" content="2021-03-11T14:55:34.739Z">
+<meta property="article:author" content="山谷">
+<meta property="article:tag" content="汇编语言">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.ax1x.com/2021/03/11/6NaG8J.png"><link rel="shortcut icon" href="/img/biaoti.png"><link rel="canonical" href="http://example.com/2021/03/11/%E6%B1%87%E7%BC%96%EF%BC%88%E4%BA%8C-%E5%AD%98%E5%82%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-03-11 22:55:34'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><script src="/live2d-widget-master/autoload.js"></script><div class="aplayer" data-id="494201668" data-server="netease" data-type="song" data-fixed="true" data-listFolded="false" data-order="random" data-preload="none"></div><link rel="stylesheet" href="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.css"><script src="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"></script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/biaoti.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">13</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">7</div></a></div></div></div><hr/></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://s3.ax1x.com/2021/03/11/6NawVK.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">ShanGu's Blog</a></span><span id="menus"><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">汇编（二）存储模式和汇编指令</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-03-11T14:42:35.000Z" title="Created 2021-03-11 22:42:35">2021-03-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-03-11T14:55:34.739Z" title="Updated 2021-03-11 22:55:34">2021-03-11</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="存储模式和汇编指令"><a href="#存储模式和汇编指令" class="headerlink" title="存储模式和汇编指令"></a>存储模式和汇编指令</h1><p>[TOC]</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h1 id="存储模式"><a href="#存储模式" class="headerlink" title="存储模式"></a>存储模式</h1><p>分为：大端模式和小端模式；</p>
+<p>大端模式：数据低位在高位，数据高位在低位；</p>
+<p> 详细解释就是，数据的高位字节存放在内存的低地址端，数据的高位字节存放在内存的高地址端；</p>
+<p>内存地址的低位到高位位就是从小到大；比如下面四个地址就是从低位到高位：</p>
+<table>
+<thead>
+<tr>
+<th>地址低位</th>
+<th></th>
+<th></th>
+<th>地址高位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x11</td>
+<td>0x12</td>
+<td>0x13</td>
+<td>0x14</td>
+</tr>
+</tbody></table>
+<p>小端模式；数据低位在低位，数据高位在高位；</p>
+<p>通过实例来看一下：</p>
+<p>假设，要将0x1A2B3C4D以大端模式存入上例，那么结果就是：</p>
+<p>mov  dword ptr sd:[0x00000011]</p>
+<table>
+<thead>
+<tr>
+<th>地址低位</th>
+<th></th>
+<th></th>
+<th>地址高位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x11</td>
+<td>0x12</td>
+<td>0x13</td>
+<td>0x14</td>
+</tr>
+<tr>
+<td>4D</td>
+<td>3C</td>
+<td>2B</td>
+<td>1A</td>
+</tr>
+<tr>
+<td><strong>数据高位</strong></td>
+<td></td>
+<td></td>
+<td><strong>数据低位</strong></td>
+</tr>
+</tbody></table>
+<p>以上就是大端存储的示范。</p>
+<p>至于为什么存放是从1A开始而不是1开始。是因为以字节为单位进行的，1A是16进制，刚好是二进制的八位，也就是一字节。</p>
+<p>DTdebug使用</p>
+<p>在上一篇文章里只简单介绍了DTdebug的不同窗口，并没有做详细使用介绍。</p>
+<p>在dTdebug的主界面左下角，有一个命令栏，可以进行一系列操作，比如查询一个地址当前的状态：</p>
+<p>并不是所有的地址都可以访问，只有已经被分配的地址才可以通过这个方式查看。也就是说，在栈窗口中出现的地址都是可以访问的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db 18FF9C                  &#x2F;&#x2F;db就是字节，查看也是以一个字节查看</span><br><span class="line">                           &#x2F;&#x2F;两个字节就是dw</span><br><span class="line">                           &#x2F;&#x2F;四个字节就是dd</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="利用DTdebug判断程序存储模式"><a href="#利用DTdebug判断程序存储模式" class="headerlink" title="利用DTdebug判断程序存储模式"></a>利用DTdebug判断程序存储模式</h1><h1 id="movs指令与stos指令"><a href="#movs指令与stos指令" class="headerlink" title="movs指令与stos指令"></a>movs指令与stos指令</h1><h2 id="MOVS指令"><a href="#MOVS指令" class="headerlink" title="MOVS指令"></a>MOVS指令</h2><p>movs：实现内存与内存之间的数据传递，mov指令只能实现寄存器与内存的数据传递无法实现内存与内存。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MOVS BYTE PTR ES:[EDI],BYTE PTR DS:[ESI]                     &#x2F;&#x2F;移动一个字节也就是八位</span><br><span class="line"></span><br><span class="line">MOVS WORD PTR ES:[EDI],WORD PTR DS:[ESI]                     &#x2F;&#x2F;移动两个字节，十六位</span><br><span class="line"></span><br><span class="line">MOVS DWORD PTR ES:[EDI],DWORD PTR DS:[ESI]                   &#x2F;&#x2F;移动四个字节，三十二位</span><br></pre></td></tr></table></figure>
+
+<p>movs指令存储一字节：</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/6tzR7d"><img src="https://s3.ax1x.com/2021/03/11/6tzR7d.png" alt="6tzR7d.png"></a></p>
+<p>提前更改好了ESI（数据来源）和EDI(存储地址)，当然也可以用mov指令存入。</p>
+<p>此刻堆栈中数据：</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/6tzTc8"><img src="https://s3.ax1x.com/2021/03/11/6tzTc8.png" alt="6tzTc8.png"></a></p>
+<p>F8执行此行命令后结果：</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/6tzI9P"><img src="https://s3.ax1x.com/2021/03/11/6tzI9P.png" alt="6tzI9P.png"></a></p>
+<p>因为movs指令中指定的宽度是byte，所以只复制了一字节内容。即图中的78。</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/6tz20H"><img src="https://s3.ax1x.com/2021/03/11/6tz20H.png" alt="6tz20H.png"></a></p>
+<p>下面再放一张两字节（WORD）的效果图，其余就不放了，占篇幅。</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/6tz20H"><img src="https://s3.ax1x.com/2021/03/11/6tz20H.png" alt="6tz20H.png"></a></p>
+<p>两字节，就是图中的5678.</p>
+<h2 id="STOS指令"><a href="#STOS指令" class="headerlink" title="STOS指令"></a>STOS指令</h2><p>stos：将寄存器EAX中的数值传递到EDI所指的地址中，并且受标志寄存器EFL中DF位（第            十位）的影响，edi中的地址也会随之改变。具体变化与传递数值宽度有关。这个放            在后面单独写一篇。</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/6Jxnat"><img src="https://s3.ax1x.com/2021/03/10/6Jxnat.png" alt="6Jxnat.png"></a></p>
+<p>上图为标志寄存器不同位的意义。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">STOS BYTE PTR ES:[EDI]</span><br><span class="line"></span><br><span class="line">STOS WORD PTR ES:[EDI]</span><br><span class="line"></span><br><span class="line">STOS DWORD PTR ES:[EDI]</span><br></pre></td></tr></table></figure>
+
+<p>和movs一样，能对不同宽度的数据进行复制移动。效果如下图:</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/6tz4ht"><img src="https://s3.ax1x.com/2021/03/11/6tz4ht.png" alt="6tz4ht.png"></a></p>
+<h2 id="REP指令"><a href="#REP指令" class="headerlink" title="REP指令"></a>REP指令</h2><p>REP：rep指令常和串传送指令搭配使用<br>功能：根据寄存器ECX的值（十六进制），重复执行后面的指令。10就是执行16次.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MOV ECX,4                          &#x2F;&#x2F;将4存入ECX，即rep指令执行次数</span><br><span class="line"></span><br><span class="line">MOV EDI,0AFF9F0                    &#x2F;&#x2F;将目标地址存入EDI</span><br><span class="line"></span><br><span class="line">REP STOS DWORD PTR ES:[EDI]        &#x2F;&#x2F;将EAX数据复制到EDI指向地址</span><br></pre></td></tr></table></figure>
+
+<p>这三条指令的效果如图，为了更加清晰我将EAX中数据改为了123456789；</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/6tzo1f"><img src="https://s3.ax1x.com/2021/03/11/6tzo1f.png" alt="6tzo1f.png"></a></p>
+<h1 id="自评"><a href="#自评" class="headerlink" title="自评"></a>自评</h1><p>学习总耗时：两天零散时间以及空课。</p>
+<p>学习效率80分吧，总体上还不错，应该继续努力。</p>
+<p>接下来要让自己静下来，提高效率。</p>
+<p>目标：堆栈</p>
+<p>加油！即使是如此愚蠢的我，也能够成为神明！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">山谷</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2021/03/11/%E6%B1%87%E7%BC%96%EF%BC%88%E4%BA%8C-%E5%AD%98%E5%82%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4/">http://example.com/2021/03/11/%E6%B1%87%E7%BC%96%EF%BC%88%E4%BA%8C-%E5%AD%98%E5%82%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">汇编语言</a></div><div class="post_share"><div class="social-share" data-image="https://s3.ax1x.com/2021/03/11/6NaG8J.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/02/28/python%E5%8A%9E%E5%85%AC%E5%A6%99%E7%94%A8/"><img class="next-cover" src="https://s3.ax1x.com/2021/02/28/6CNWHP.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">python之千奇百怪的甲方（一）</div></div></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/biaoti.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">山谷</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">13</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">7</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4"><span class="toc-text">存储模式和汇编指令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E6%A8%A1%E5%BC%8F"><span class="toc-text">存储模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%A9%E7%94%A8DTdebug%E5%88%A4%E6%96%AD%E7%A8%8B%E5%BA%8F%E5%AD%98%E5%82%A8%E6%A8%A1%E5%BC%8F"><span class="toc-text">利用DTdebug判断程序存储模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#movs%E6%8C%87%E4%BB%A4%E4%B8%8Estos%E6%8C%87%E4%BB%A4"><span class="toc-text">movs指令与stos指令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#MOVS%E6%8C%87%E4%BB%A4"><span class="toc-text">MOVS指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#STOS%E6%8C%87%E4%BB%A4"><span class="toc-text">STOS指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#REP%E6%8C%87%E4%BB%A4"><span class="toc-text">REP指令</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E8%AF%84"><span class="toc-text">自评</span></a></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/03/11/%E6%B1%87%E7%BC%96%EF%BC%88%E4%BA%8C-%E5%AD%98%E5%82%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4/" title="汇编（二）存储模式和汇编指令"><img src="https://s3.ax1x.com/2021/03/11/6NaG8J.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="汇编（二）存储模式和汇编指令"/></a><div class="content"><a class="title" href="/2021/03/11/%E6%B1%87%E7%BC%96%EF%BC%88%E4%BA%8C-%E5%AD%98%E5%82%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4/" title="汇编（二）存储模式和汇编指令">汇编（二）存储模式和汇编指令</a><time datetime="2021-03-11T14:42:35.000Z" title="Created 2021-03-11 22:42:35">2021-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/28/python%E5%8A%9E%E5%85%AC%E5%A6%99%E7%94%A8/" title="python之千奇百怪的甲方（一）"><img src="https://s3.ax1x.com/2021/02/28/6CNWHP.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="python之千奇百怪的甲方（一）"/></a><div class="content"><a class="title" href="/2021/02/28/python%E5%8A%9E%E5%85%AC%E5%A6%99%E7%94%A8/" title="python之千奇百怪的甲方（一）">python之千奇百怪的甲方（一）</a><time datetime="2021-02-28T07:18:05.000Z" title="Created 2021-02-28 15:18:05">2021-02-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/26/%E5%9F%8B%E8%91%AC%EF%BC%8C%E5%BE%80%E5%89%8D%E8%B5%B0%EF%BC%8C%E5%88%AB%E5%81%9C/" title="埋葬，往前走，别停"><img src="https://s3.ax1x.com/2021/02/26/yxleZn.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="埋葬，往前走，别停"/></a><div class="content"><a class="title" href="/2021/02/26/%E5%9F%8B%E8%91%AC%EF%BC%8C%E5%BE%80%E5%89%8D%E8%B5%B0%EF%BC%8C%E5%88%AB%E5%81%9C/" title="埋葬，往前走，别停">埋葬，往前走，别停</a><time datetime="2021-02-25T17:13:35.000Z" title="Created 2021-02-26 01:13:35">2021-02-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/11/%E8%BE%9E%E6%97%A7%E8%BF%8E%E6%96%B0-%E5%85%B3%E4%BA%8E%E8%BF%87%E5%8E%BB%E4%B8%80%E5%B9%B4%E7%9A%84%E6%80%9D%E8%80%83%E5%92%8C%E6%9C%AA%E6%9D%A5%E8%A7%84%E5%88%92%E3%80%82/" title="辞旧迎新:关于过去一年的思考和未来规划。"><img src="https://s3.ax1x.com/2021/02/12/yDbUe0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="辞旧迎新:关于过去一年的思考和未来规划。"/></a><div class="content"><a class="title" href="/2021/02/11/%E8%BE%9E%E6%97%A7%E8%BF%8E%E6%96%B0-%E5%85%B3%E4%BA%8E%E8%BF%87%E5%8E%BB%E4%B8%80%E5%B9%B4%E7%9A%84%E6%80%9D%E8%80%83%E5%92%8C%E6%9C%AA%E6%9D%A5%E8%A7%84%E5%88%92%E3%80%82/" title="辞旧迎新:关于过去一年的思考和未来规划。">辞旧迎新:关于过去一年的思考和未来规划。</a><time datetime="2021-02-11T13:49:08.000Z" title="Created 2021-02-11 21:49:08">2021-02-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/07/ctf/" title="ctf逆向题目训练笔记（一）"><img src="https://s3.ax1x.com/2021/02/07/ytbbiq.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ctf逆向题目训练笔记（一）"/></a><div class="content"><a class="title" href="/2021/02/07/ctf/" title="ctf逆向题目训练笔记（一）">ctf逆向题目训练笔记（一）</a><time datetime="2021-02-07T06:07:13.000Z" title="Created 2021-02-07 14:07:13">2021-02-07</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 山谷</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> {preloader.endLoading()})</script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script></div></body></html>
