@@ -1,0 +1,16 @@
+{
+  "title": "Tutorial - Basics",
+  "description": "5 minutes to learn the most important Docusaurus concepts.",
+  "slug": "/category/tutorial---basics-1",
+  "permalink": "/zh-Hans/docs/category/tutorial---basics-1",
+  "navigation": {
+    "previous": {
+      "title": "Tutorial Intro",
+      "permalink": "/zh-Hans/docs/Misc/intro"
+    },
+    "next": {
+      "title": "Create a Page",
+      "permalink": "/zh-Hans/docs/Misc/tutorial-basics/create-a-page"
+    }
+  }
+}

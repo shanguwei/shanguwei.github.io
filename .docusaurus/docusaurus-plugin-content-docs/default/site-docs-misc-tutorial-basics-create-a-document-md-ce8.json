@@ -1,0 +1,27 @@
+{
+  "id": "Misc/tutorial-basics/create-a-document",
+  "title": "Create a Document",
+  "description": "Documents are groups of pages connected through:",
+  "source": "@site/docs/Misc/tutorial-basics/create-a-document.md",
+  "sourceDirName": "Misc/tutorial-basics",
+  "slug": "/Misc/tutorial-basics/create-a-document",
+  "permalink": "/zh-Hans/docs/Misc/tutorial-basics/create-a-document",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/Misc/tutorial-basics/create-a-document.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2
+  },
+  "sidebar": "miscSidebar",
+  "previous": {
+    "title": "Create a Page",
+    "permalink": "/zh-Hans/docs/Misc/tutorial-basics/create-a-page"
+  },
+  "next": {
+    "title": "Create a Blog Post",
+    "permalink": "/zh-Hans/docs/Misc/tutorial-basics/create-a-blog-post"
+  }
+}

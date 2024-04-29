@@ -1,0 +1,23 @@
+{
+  "id": "Re/intro",
+  "title": "Tutorial Intro",
+  "description": "Let's discover Docusaurus in less than 5 minutes.",
+  "source": "@site/docs/Re/intro.md",
+  "sourceDirName": "Re",
+  "slug": "/Re/intro",
+  "permalink": "/zh-Hans/docs/Re/intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/Re/intro.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "reSidebar",
+  "next": {
+    "title": "Hi!",
+    "permalink": "/zh-Hans/docs/Re/hello"
+  }
+}

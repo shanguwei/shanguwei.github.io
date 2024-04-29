@@ -1,0 +1,9 @@
+{
+  "type": "mdx",
+  "permalink": "/my-markdown-page",
+  "source": "@site/src/pages/my-markdown-page.md",
+  "title": "0_preview",
+  "description": "测试",
+  "frontMatter": {},
+  "unlisted": false
+}
