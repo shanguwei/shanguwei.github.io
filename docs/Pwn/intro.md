@@ -2,46 +2,34 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+# 方向介绍
 
-Let's discover **Docusaurus in less than 5 minutes**.
+(待更新，以后有基础项目需求了再写)
 
-## Getting Started
+## 题型分类
 
-Get started by **creating a new site**.
+从2019年以后Misc题型可谓是百花齐放，时至今日Misc方向的题目最常见的就是各种套娃和稀奇古怪的编码。
+总体而言，可以分为以下四个大类：
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+- 信息提取&处理
+- 文件隐写
+- 流量分析
+- 电子取证
 
-### What you'll need
+## 相关技术
 
-- [Node.js](https://nodejs.org/en/download/) version 18.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+- C、Python等语言的简单认识和基础编写
 
-## Generate a new site
+- 常见文件的文件结构
+- 编码和加解密
+- 传输协议
 
-Generate a new Docusaurus site using the **classic template**.
+Misc实际上并不怎么依赖于技术，尤其是ChatGPT问世以来，编写解题代码变得不再困难。要说必须依靠什么的话那就是——思维。
 
-The classic template will automatically be added to your project after you run the command:
+早些年问过套宝，我也十分认同积累与特征的说法。工作以后接触的办赛出题项目和培训项目多了，逐渐发现积累和提取特征的过程，实际上就是塑造做题思路或者说方法论的过程。
 
-```bash
-npm init docusaurus@latest my-website classic
-```
+所以本站的撰写核心思路就是方法论，将个方向学习方法和思路进行总结。
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+## 补充
 
-The command also installs all necessary dependencies you need to run Docusaurus.
-
-## Start your site
-
-Run the development server:
-
-```bash
-cd my-website
-npm run start
-```
-
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
-
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
-
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+:shangu:主操作系统为Ubuntu，所以大部分工具首先介绍Linux系统下的，windows工具仅做额外补充。
