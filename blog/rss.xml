@@ -4,7 +4,7 @@
         <title>My Site Blog</title>
         <link>https://shanguwei.github.io/blog</link>
         <description>My Site Blog</description>
-        <lastBuildDate>Tue, 30 Apr 2024 03:34:13 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 30 Apr 2024 03:44:43 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -12,7 +12,7 @@
             <title><![CDATA[SHangu]]></title>
             <link>https://shanguwei.github.io/blog/greetings</link>
             <guid>https://shanguwei.github.io/blog/greetings</guid>
-            <pubDate>Tue, 30 Apr 2024 03:34:13 GMT</pubDate>
+            <pubDate>Tue, 30 Apr 2024 03:44:43 GMT</pubDate>
             <description><![CDATA[Congratulations, you have made your first post!]]></description>
             <content:encoded><![CDATA[<p>Congratulations, you have made your first post!</p>
 <p>Feel free to play around and edit this post as much as you like.</p>]]></content:encoded>
