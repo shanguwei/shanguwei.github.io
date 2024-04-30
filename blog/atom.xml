@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://shanguwei.github.io/blog</id>
-    <title>My Site Blog</title>
-    <updated>2024-04-30T09:33:56.000Z</updated>
+    <title>Sea Of CTF Blog</title>
+    <updated>2024-04-30T10:04:31.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://shanguwei.github.io/blog"/>
-    <subtitle>My Site Blog</subtitle>
+    <subtitle>Sea Of CTF Blog</subtitle>
     <icon>https://shanguwei.github.io/img/favicon.ico</icon>
     <entry>
-        <title type="html"><![CDATA[SHangu]]></title>
+        <title type="html"><![CDATA[开发日志]]></title>
         <id>https://shanguwei.github.io/blog/greetings</id>
         <link href="https://shanguwei.github.io/blog/greetings"/>
-        <updated>2024-04-30T09:33:56.000Z</updated>
-        <summary type="html"><![CDATA[Congratulations, you have made your first post!]]></summary>
-        <content type="html"><![CDATA[<p>Congratulations, you have made your first post!</p>
-<p>Feel free to play around and edit this post as much as you like.</p>]]></content>
+        <updated>2024-04-30T10:04:31.000Z</updated>
+        <summary type="html"><![CDATA[完成初步架构]]></summary>
+        <content type="html"><![CDATA[<p>完成初步架构</p>]]></content>
         <author>
             <name>shangu</name>
             <uri>https://github.com/JoelMarcey</uri>
