@@ -2,15 +2,12 @@
 sidebar_position: 1
 ---
 
-# Create a Page
+# 编码大全
 
-Add **Markdown or React** files to `src/pages` to create a **standalone page**:
+起初我还是很想把编码和加密完全区分开的，但是这俩玩意儿不太好界定，先写着吧后续再改。
+还不如分两块，一块是可以一把嗦工具识别的，另一块是识别不出来的。
 
-- `src/pages/index.js` → `localhost:3000/`
-- `src/pages/foo.md` → `localhost:3000/foo`
-- `src/pages/foo/bar.js` → `localhost:3000/foo/bar`
 
-## Create your first React Page
 
 Create a file at `src/pages/my-react-page.js`:
 

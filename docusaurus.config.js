@@ -97,6 +97,12 @@ const config = {
             position: 'left',
             label: 'Web',
           },
+                    {
+            type: 'docSidebar',
+            sidebarId: 'rdgSidebar',
+            position: 'left',
+            label: '安全运维',
+          },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/facebook/docusaurus',
