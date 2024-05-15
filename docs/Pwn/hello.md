@@ -5,15 +5,17 @@ sidebar_position: 3
 
 # 工具汇总
 
-## CheatEngine
+## Pwntools
 
-[下载链接](https://down.52pojie.cn/Tools/Debuggers/CheatEngine_v7.5.exe)
+```bash
+pip3 install pwntools
+```
 
-## ExeinfoPe
+## GDB
 
 [下载链接](https://down.52pojie.cn/Tools/PEtools/ExeinfoPe.zip)
 
-## 010editor
+## Pwninit
 
 [下载链接](https://www.ghxi.com/010editor.html)
 
@@ -21,11 +23,11 @@ sidebar_position: 3
 
 [下载链接](https://down.52pojie.cn/Tools/Disassemblers/IDA_Pro_v8.3_Portable.zip)
 
-## x64dbg
+## pwndbg
 
 [下载链接](https://down.52pojie.cn/Tools/Debuggers/x64dbg_2024_04-11.zip)
 
-## pyinstxtractor
+## sgtlibc
 
 [下载链接](https://github.com/extremecoders-re/pyinstxtractor)
 
