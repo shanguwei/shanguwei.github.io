@@ -1,5 +1,5 @@
 ---
-sidebar_label: 'Hi!'
+sidebar_label: 'pwn工具及插件'
 sidebar_position: 3
 ---
 
@@ -13,42 +13,30 @@ pip3 install pwntools
 
 ## GDB
 
-[下载链接](https://down.52pojie.cn/Tools/PEtools/ExeinfoPe.zip)
-
 ## Pwninit
 
-[下载链接](https://www.ghxi.com/010editor.html)
+[下载链接](https://github.com/io12/pwninit)
+
+## glibc-all-in-one
+
+[下载链接](https://github.com/matrix1001/glibc-all-in-one)
+
+## clibc
+
+[下载链接](https://github.com/tower111/pwn-change-libc)
 
 ## IDA
 
-[下载链接](https://down.52pojie.cn/Tools/Disassemblers/IDA_Pro_v8.3_Portable.zip)
-
 ## pwndbg
 
-[下载链接](https://down.52pojie.cn/Tools/Debuggers/x64dbg_2024_04-11.zip)
+[下载链接](https://github.com/pwndbg/pwndbg)
 
 ## sgtlibc
 
-[下载链接](https://github.com/extremecoders-re/pyinstxtractor)
+[下载链接](https://github.com/serfend/sgtlibc)
 
 ## pycdc
 
 [源码](https://github.com/zrax/pycdc)
 
 [编译版本](https://github.com/extremecoders-re/decompyle-builds)
-
-## uncompyle6
-
-```
-sudo pip3 install uncompyle6
-```
-
-## decompyle3
-
-```
-sudo pip3 install decompyle3
-```
-
-## IDA-python
-
-:star:安装新版python

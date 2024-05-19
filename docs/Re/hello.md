@@ -1,5 +1,5 @@
 ---
-sidebar_label: 'Hi!'
+sidebar_label: '逆向工具'
 sidebar_position: 3
 ---
 
@@ -50,3 +50,4 @@ sudo pip3 install decompyle3
 ## IDA-python
 
 :star:安装新版python
+新版ida已经集成了插件
