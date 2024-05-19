@@ -51,3 +51,10 @@ sudo pip3 install decompyle3
 
 :star:安装新版python
 新版ida已经集成了插件
+
+## genymotion
+
+[下载链接](https://www.genymotion.com/product-desktop/download/)
+
+## jeb4
+
