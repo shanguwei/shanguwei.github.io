@@ -56,3 +56,56 @@ flag的每一位与key的每一位异或，结果就是result
 1100 flag
 
 ![image-20240520112707401](http://image.shangu127.top/img/2024/03/image-20240520112707401.png)
+
+# re2
+
+![image-20240520144512283](http://image.shangu127.top/img/2024/03/image-20240520144512283.png)
+
+create_key:
+![image-20240520144538138](http://image.shangu127.top/img/2024/03/image-20240520144538138.png)
+
+flag_enc[k] = flag_enc[k] ^ key[(s[v5] + key[v5])]
+
+```python
+import base64
+import pdb
+
+def rc4(key, data):
+    # 初始化 S 盒
+    sbox = list(range(256))
+    j = 0
+    pdb.set_trace()
+    for i in range(256):
+        j = (j + sbox[i] + key[i % len(key)]) % 256
+        sbox[i], sbox[j] = sbox[j], sbox[i]
+
+    # 加密或解密
+    i = j = 0
+    result = bytearray()
+    for byte in data:
+        i = (i + 1) % 256
+        j = (j + sbox[i]) % 256
+        sbox[i], sbox[j] = sbox[j], sbox[i]
+        k = sbox[(sbox[i] + sbox[j]) % 256]
+        result.append((byte ^ k) % 256)
+
+    return bytes(result)
+
+
+# 测试
+# key = b'\x01#Eg\x89\xAB\xCD\xEF'
+key = base64.b64decode("ASNFZ4mrze8=")
+plaintext = base64.b64decode(
+    "EvijgGsuaQp0JLcyU/x6neh7my7v8wtFYwE1t3aMy9nGi4wqqK1nCVwPUtSdJ8PQxZHA6r8N52waahoSt7gYuUbDW5BFe5TmX0/wZnjM6b4LlIQPM66XiEVO0nYRjpn8ytXmJ1d0AZgKzX8NosWrogWihtMOOo66zEOgvDAce0IC3KSqBomXr4HAigv3bP4wlxfqeU9IWw==")
+encrypted = rc4(key, plaintext)
+decrypted = rc4(key, encrypted)
+
+print("Plaintext:", plaintext)
+print("Encrypted:", encrypted)
+print("Decrypted:", decrypted)
+
+```
+
+# 解题思路
+
+看到线索，直接停止分析，进行爆破或者跑脚本，不成功了再回头分析
