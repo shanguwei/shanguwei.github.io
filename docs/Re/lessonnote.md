@@ -57,7 +57,7 @@ flag的每一位与key的每一位异或，结果就是result
 
 ![image-20240520112707401](http://image.shangu127.top/img/2024/03/image-20240520112707401.png)
 
-# re2
+# main
 
 ![image-20240520144512283](http://image.shangu127.top/img/2024/03/image-20240520144512283.png)
 
@@ -105,6 +105,22 @@ print("Encrypted:", encrypted)
 print("Decrypted:", decrypted)
 
 ```
+
+# re2
+
+![image-20240520170351988](http://image.shangu127.top/img/2024/03/image-20240520170351988.png)
+
+```python
+secret = "dmcfyb31c43143:c74`d07d`70`2ggfgc748d|"
+
+for i in range(len(secret)):
+    if i % 2:
+        print(chr(ord(secret[i]) ^ 1),end="")
+    else:
+        print(chr(ord(secret[i]) ^ 2), end="")
+```
+
+
 
 # 解题思路
 
