@@ -164,7 +164,23 @@ f.write(data)
 f.close()
 ```
 
+# welpp
 
+处理python打包类exe逆向题目，首先解包，然后进行反编译。
+
+首先根据ida中字符串的大量python库确定为python打包exe，使用工具目录下的pyinstxtractor.py解包
+
+```bash
+python pyinstxtractor.py welpp.exe
+```
+
+解包结果可以发现程序入口点是出题.pyc，接着使用pycdc、uncompyle6、decompyle3来反编译pyc文件：
+
+```bash
+pycdc 出题.pyc
+```
+
+![image-20240521111658540](http://image.shangu127.top/img/2024/03/image-20240521111658540.png)
 
 # 解题思路
 
