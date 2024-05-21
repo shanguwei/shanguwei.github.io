@@ -31,17 +31,23 @@ sidebar_position: 3
 
 ## pycdc
 
+大项目，优先使用，如果解决不了再尝试其余两个。
+
 [源码](https://github.com/zrax/pycdc)
 
 [编译版本](https://github.com/extremecoders-re/decompyle-builds)
 
 ## uncompyle6
 
+无法处理python3.9及以上版本
+
 ```
 sudo pip3 install uncompyle6
 ```
 
 ## decompyle3
+
+处理uncompyle6无法处理或报错的python3.6-3.8
 
 ```
 sudo pip3 install decompyle3

@@ -152,6 +152,20 @@ print(base64.b64decode(tmp2+'=='))
 
 调用不存在地址报错 --->  汇编解析失误 ---> 按d查看汇编源数据 ---> 分析花指令位置 ---> 将花指令改为空指令nop(edit-patch program - change byte 8e改90) ---> 按c将数据重新汇编 ---> 给ida指定函数入口点，在主函数开头按p
 
+```python
+f = open("junk.exe","rb")
+data = f.read()
+f.close()
+rpdata = 'E858C745EC00'.decode('hex')
+result = '9058C745EC00'.decode('hex')
+data = data.replace(rpdata,result)
+f = open("without_junk.exe","wb")
+f.write(data)
+f.close()
+```
+
+
+
 # 解题思路
 
 看到线索，直接停止分析，进行爆破或者跑脚本，不成功了再回头分析
