@@ -182,6 +182,69 @@ pycdc 出题.pyc
 
 ![image-20240521111658540](http://image.shangu127.top/img/2024/03/image-20240521111658540.png)
 
+```python
+import base64, string
+from ctypes import *
+import sys
+
+def encrypt(text):
+    data_xor_iv = bytearray()
+    sbox = []
+    j = 0
+    x = y = k = 0
+    key = "1234"
+    for i in range(256):
+        sbox.append(i)
+
+    for i in range(256):
+        j = j + sbox[i] + ord(key[i % len(key)]) & 255
+        sbox[i] = sbox[j]
+        sbox[j] = sbox[i]
+
+    for idx in text:
+        x = x + 1 & 255
+        y = y + sbox[x] & 255
+        sbox[x] = sbox[y]
+        sbox[y] = sbox[x]
+        k = sbox[sbox[x] + sbox[y] & 255]
+        data_xor_iv.append(idx ^ k ^ 17)
+
+    return data_xor_iv
+
+
+# if __name__ == "__main__":
+#     print("Please input your key and flag:")
+#     key11 = int(input("keys:"))
+#     str1 = str(input("flag:"))
+#     if len(str1) != 42:
+#         print("length error!")
+#         sys.exit()
+#     lis1 = list(str1)
+#     lis2 = [ord(lis1[i]) for i in range(len(lis1))]
+#     for i in range(len(lis2)):
+#         lis2[i] = lis2[i] ^ key11   #crypt1 = input_flag[i] ^ ???
+
+#     crypt1 = bytes(lis2)
+#     crypt2 = bytes(encrypt(crypt1)) # crypt = rc4(1234,crypt1)
+#     base2 = base64.b64encode(crypt2).decode()
+#     if base2 == "wM/Cya0b08LMlZeW2g5SEcKWjuyRlx3Og5yMgLsR6pLCwLTQkIfHHJHe":
+#         print("ok,you get the flag!") #result = base64(crypt2)
+#     else:
+#         print("error!")
+#crypt2 = base64_decode(result)
+#crypt1 = rc4_decode(crypt2) #rc4 = rc4decode
+#flag = crypt1 ^ ???
+#flag{xxxxxxxxxxx}
+crypt2 = base64.b64decode(b"wM/Cya0b08LMlZeW2g5SEcKWjuyRlx3Og5yMgLsR6pLCwLTQkIfHHJHe")
+print(crypt2)
+crypt1 = str(encrypt(crypt2))
+print(crypt1)
+for i in range(len(crypt1)):
+    print(chr(ord(crypt1[i]) ^ 22),end="")
+```
+
+
+
 # 解题思路
 
 看到线索，直接停止分析，进行爆破或者跑脚本，不成功了再回头分析
