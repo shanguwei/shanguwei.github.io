@@ -120,6 +120,28 @@ for i in range(len(secret)):
         print(chr(ord(secret[i]) ^ 2), end="")
 ```
 
+# ezre
+
+key = crypt1(key1,key)
+
+secret = crypt2(flag,key)
+
+# some_enc
+
+```python
+import base64
+table = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0987654321/+'
+table2 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+
+tmp = 'mTyqm7wjODkrNLcWl0eqO8K8gc1BPk1GNLgUpI'
+tmp2 = ''
+for i in tmp:
+    index = table.index(i)
+    tmp2 += table2[index]
+
+print(base64.b64decode(tmp2+'=='))
+```
+
 
 
 # 解题思路
