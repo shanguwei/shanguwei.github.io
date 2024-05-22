@@ -65,6 +65,14 @@ gcc -O1 main.c -o main.out
 > PIE：-no-pie / -pie (关闭 / 开启) 地址随机化，另外打开后会有get_pc_thunk
 > RELRO：-z norelro / -z lazy / -z now (关闭 / 部分开启 / 完全开启) 对GOT表具有写权限
 
+为了方便调试学习，关闭大部分保护机制：
+
+```bash
+gcc 1.c -no-pie -z execstack -fno-stack-protector -o task1
+```
+
+
+
 ## 验证调试
 
 :book:test1：
