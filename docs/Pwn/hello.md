@@ -25,6 +25,22 @@ pip3 install pwntools
 
 [下载链接](https://github.com/tower111/pwn-change-libc)
 
+```bash
+git clone https://github.com/tower111/pwn-change-libc
+cd pwn-change-libc
+python3 get_env.py
+sudo ln -s <clibc的绝对路径> /usr/bin/clibc
+```
+
+使用方法：
+
+```bash
+#clibc 目标文件 目标版本
+clibc pwn 2.21
+```
+
+
+
 ## IDA
 
 ## pwndbg

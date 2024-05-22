@@ -71,7 +71,9 @@ gcc -O1 main.c -o main.out
 gcc 1.c -no-pie -z execstack -fno-stack-protector -o task1
 ```
 
+正常空间0x50 + 填充rbp 0x8 + 恶意指令或地址
 
+payload = b's'*0x58 + backdoor_address
 
 ## 验证调试
 
