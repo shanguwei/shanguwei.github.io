@@ -228,3 +228,53 @@ WXHTgnSAui65GPspCXMgDeSRKmwH8WZIWZpwxT5Vgltq3oqeSsWOFxKV8fELmoXi
 ![image-20230829224240491](http://image.shangu127.top/img/2023/ctf/image-20230829224240491.png)
 
 ![image-20230829224331784](http://image.shangu127.top/img/2023/ctf/image-20230829224331784.png)
+
+```python
+'''
+secret = "NOYKxeJRlz65XGjgTODxUvJIBdnY8NQZNQgnoK5Mxckh3fhvJjNFWoBM8wVCdfOz"
+aes_iv = "ZmxhZ2ZsYWdyZQ=="
+secret = aes_encode(key,iv,flag)
+flag = aes_decode(key,iv,secret)
+#调试获得key
+aes_key = "Z29qZSUgYKMmYJ5fch9kZL=="
+#Myjni.encode(base64(AES(key,iv,flag))) = secret
+decode(secret) -- > base64(decode(secret)) -- > AES(key,iv,base64(decode(secret)))
+'''
+secret = "8fELmoXiWXHTgnSASsWOFxKVCXMgDeSRWZpwxT5Vgltq3oqeKmwH8WZIui65GPsp"
+flag = []
+for i in range(len(secret)):
+    v8 = ord(secret[i])
+    #V8 - 123 > -27
+    if v8 > 96:
+        v6 = 97
+        v7 = -97
+    else:
+        #v8 -91 < -26
+        if v8 < 65:
+            flag.append(v8)
+            continue
+        v6 = 65
+        v7 = -65
+    #((20165 * ((char)(v7 + v8) + 17) < 0) + ((unsigned int)(20165 * ((char)(v7 + v8) + 17)) >> 19))
+    flag.append(v6 + v7 + v8 + 17 - 26 * (20165 * ((v7 + v8 + 17) < 0) + (20165 * (v7 + v8 + 17)) >> 19))
+
+print(flag)
+for i in range(len(flag)):
+    print(chr(flag[i]),end="")
+print()
+hex_num = 0xFFFFFFE5
+decimal_num = -(0x100000000 - hex_num) if hex_num & 0x80000000 else hex_num
+print(decimal_num)
+
+# if  xxx
+#    v8 + 17
+# else:
+# 	v8 + 17 -26
+# encode() = unknow(kaisa(str1))
+# 	str1 = "8fELmoXiWXHTgnSASsWOFxKVCXMgDeSRWZpwxT5Vgltq3oqeKmwH8WZIui65GPsp"
+# 	kaisa_result = "8wVCdfOzNOYKxeJRJjNFWoBMTODxUvJINQgnoK5Mxckh3fhvBdnY8NQZlz65XGjg"
+# 	secret = "NOYKxeJRlz65XGjgTODxUvJIBdnY8NQZNQgnoK5Mxckh3fhvJjNFWoBM8wVCdfOz"
+
+# convert(secret) -- > kaisa(convert(secret)) -- >base64(kaisa(convert(secret))) -- > AES(base64(kaisa(convert(secret))))
+```
+

@@ -62,5 +62,12 @@ sudo pip3 install decompyle3
 
 [下载链接](https://www.genymotion.com/product-desktop/download/)
 
+![image-20240521152859912](http://image.shangu127.top/img/2024/03/image-20240521152859912.png)
+
 ## jeb4
 
+![image-20240521163031269](http://image.shangu127.top/img/2024/03/image-20240521163031269.png)
+
+## ADB
+
+[下载链接](https://adbdownload.com/)
