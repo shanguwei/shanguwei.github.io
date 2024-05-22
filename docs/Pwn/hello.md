@@ -28,6 +28,7 @@ pip3 install pwntools
 ```bash
 git clone https://github.com/tower111/pwn-change-libc
 cd pwn-change-libc
+#将此项目下update_list文件第一行的python改为python3
 python3 get_env.py
 sudo ln -s <clibc的绝对路径> /usr/bin/clibc
 ```
