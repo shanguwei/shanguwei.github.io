@@ -288,8 +288,12 @@ io.interactive()
 
 #### patchlibc
 
+将libc修改为旧版本并且复制libc到本目录，方便脚本查找函数
+
 ```bash
 clibc pwn 2.23
+ldd pwn
+cp /glibc/2.23/64/lib/libc.so.6 ./libc.so.6
 ```
 
 程序system，静态的system与静态的puts的偏移量。
