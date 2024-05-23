@@ -286,6 +286,12 @@ io.interactive()
 
 ## ret2libc
 
+#### patchlibc
+
+```bash
+clibc pwn 2.23
+```
+
 程序system，静态的system与静态的puts的偏移量。
 
 puts加载后再got表的地址（libc中的puts记载到内存的位置），
