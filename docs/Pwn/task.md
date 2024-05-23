@@ -33,6 +33,18 @@ io.interactive()
 
 若本地环境大于Ubuntu18，则需要使用clibc去将程序的glibc版本修改到旧版本，否则无法成功利用漏洞。
 
+#### pwninit
+
+确保pwninit、题目文件和libc文件在同一目录下（也可以将pwninit配置为环境变量）：
+
+```bash
+pwninit
+```
+
+之后会在本地生产修改libc的版本以及一个exp模板。
+
+#### clibc
+
 [下载链接](https://github.com/tower111/pwn-change-libc)
 
 ```bash
