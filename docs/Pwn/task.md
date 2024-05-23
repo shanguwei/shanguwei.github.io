@@ -439,6 +439,12 @@ io.interactive()
 
 #### 无libc文件的ret2libc
 
+sgtlibc报错，请执行下面指令修复：
+
+```bash
+pip3 install attrs
+```
+
 ```python
 from pwn import *
 import pdb
