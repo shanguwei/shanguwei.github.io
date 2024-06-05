@@ -33,3 +33,4 @@ Misc实际上并不怎么依赖于技术，尤其是ChatGPT问世以来，编写
 ## 补充
 
 :shangu:主操作系统为Ubuntu，所以大部分工具首先介绍Linux系统下的，windows工具仅做额外补充。
+

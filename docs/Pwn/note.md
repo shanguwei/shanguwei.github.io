@@ -549,7 +549,7 @@ write_size=‘byte’, 指定逐byte/short/int写
 ## ret2syscall
 
 这类题目没有 `system ()` 这类的函数，而且我们也不能在栈上执行我们的 **shellcode**，也就是说我们之前学到的 **ret2text** 和 **ret2shellcode**都不能用。
-所以我们利用程序中的 gadgets 来获得 shell，而对应的 shell 获取则是利用[系统调用](https://link.wangan.com/check?link=https%3A%2F%2Fzh.wikipedia.org%2Fwiki%2F系统调用)。
+所以我们利用程序中的 gadgets 来获得 shell，而对应的 shell 获取则是利用[系统调用](https://blog.csdn.net/sinat_26227857/article/details/44244433)。
 
 需要我们自己构造 rop链。**32位**的 `syscall` 需要准备以下条件：
 
@@ -562,7 +562,7 @@ write_size=‘byte’, 指定逐byte/short/int写
 
 > **系统调用号**不同.比如**x86**中 `sys_write` 是 4 ，`sys_exit` 是 1；
 > 而x86_64`sys_write` 是 1 , `sys_exit` 是 60。
-> 系统调用所使用的寄存器不同，**x86_64**中使用与 eax 对应的 rax 传递系统调用号，但是 **x86_64**中分别使用 rdi/rsi/rdx 传递前三个参数，而不是 **x86** 中的 ebx/ecx/edx。
+> 系统调用所使用的寄存器不同，**x86**中使用与 eax 对应的 rax 传递系统调用号，但是 **x86_64**中分别使用 rdi/rsi/rdx 传递前三个参数，而不是 **x86** 中的 ebx/ecx/edx。
 > 系统调用使用 “ `syscall` ” 而不是 “ `int 80` ”
 
 所以我们需要做的一共有这几件事：
